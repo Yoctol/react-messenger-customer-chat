@@ -2,7 +2,7 @@
 
 > React component for messenger customer chat plugin
 
-[![npm](https://img.shields.io/npm/v/react-facebook-customer-chat.svg?style=flat-square)](https://www.npmjs.com/package/react-facebook-customer-chat)
+[![npm](https://img.shields.io/npm/v/react-messenger-customer-chat.svg?style=flat-square)](https://www.npmjs.com/package/react-messenger-customer-chat)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 ## Screenshot
