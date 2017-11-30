@@ -5130,9 +5130,9 @@ react-error-overlay@^3.0.0:
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/react-error-overlay/-/react-error-overlay-3.0.0.tgz#c2bc8f4d91f1375b3dad6d75265d51cd5eeaf655"
 
-react-facebook-customer-chat@^0.0.1:
-  version "0.0.1"
-  resolved "https://registry.yarnpkg.com/react-facebook-customer-chat/-/react-facebook-customer-chat-0.0.1.tgz#619c30e204876df829e9f25982fbabc89e7dac55"
+react-facebook-customer-chat@^0.0.2:
+  version "0.0.2"
+  resolved "https://registry.yarnpkg.com/react-facebook-customer-chat/-/react-facebook-customer-chat-0.0.2.tgz#41a355c036cea48ad68d07759b6f54b8d1c2db83"
   dependencies:
     prop-types "^15.6.0"
 
