@@ -1,6 +1,6 @@
-# React Facebook Customer Chat
+# React Messenger Customer Chat
 
-> React component for facebook customer chat plugin
+> React component for messenger customer chat plugin
 
 [![npm](https://img.shields.io/npm/v/react-facebook-customer-chat.svg?style=flat-square)](https://www.npmjs.com/package/react-facebook-customer-chat)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
@@ -13,7 +13,7 @@
 ## Installation
 
 ```sh
-npm install react-facebook-customer-chat
+npm install react-messenger-customer-chat
 ```
 
 ## Usage
@@ -21,10 +21,10 @@ npm install react-facebook-customer-chat
 ```js
 import React from 'react';
 import ReactDOM from 'react-dom';
-import FacebookCustomerChat from 'react-facebook-customer-chat';
+import MessengerCustomerChat from 'react-messenger-customer-chat';
 
 ReactDOM.render(
-  <FacebookCustomerChat
+  <MessengerCustomerChat
     pageId="<PAGE_ID>"
     appId="<APP_ID>"
     autoLoad={true}
@@ -37,4 +37,4 @@ ReactDOM.render(
 
 ## License
 
-MIT © [Yoctol](https://github.com/Yoctol/react-facebook-customer-chat)
+MIT © [Yoctol](https://github.com/Yoctol/react-messenger-customer-chat)
