@@ -21,5 +21,6 @@ module.exports = {
         singleQuote: true,
       },
     ],
+    'react/sort-prop-types': 'off',
   },
 };

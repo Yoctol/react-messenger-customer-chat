@@ -54,13 +54,13 @@ export default class FacebookCustomerChat extends Component {
   }
 
   setFbAsyncInit() {
-    const { appId, xfbml, version, autoLoad } = this.props;
+    const { appId, autoLogAppEvents, xfbml, version } = this.props;
     window.fbAsyncInit = () => {
       window.FB.init({
-        version: `v${version}`,
         appId,
+        autoLogAppEvents,
         xfbml,
-        cookie,
+        version: `v${version}`,
       });
       this.setStateIfMounted({ isSdkLoaded: true });
     };
@@ -94,7 +94,7 @@ export default class FacebookCustomerChat extends Component {
     }
     return (
       <div
-        class="fb-customerchat"
+        className="fb-customerchat"
         page_id={this.props.pageId}
         {...options}
       />

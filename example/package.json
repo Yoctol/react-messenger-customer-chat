@@ -5,6 +5,7 @@
   "dependencies": {
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
+    "react-facebook-customer-chat": "^0.0.1",
     "react-scripts": "1.0.17"
   },
   "scripts": {
