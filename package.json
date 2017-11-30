@@ -1,6 +1,6 @@
 {
   "name": "react-messenger-customer-chat",
-  "version": "0.0.2",
+  "version": "0.1.0",
   "description": "React component for messenger customer chat plugin",
   "main": "lib/index.js",
   "scripts": {
