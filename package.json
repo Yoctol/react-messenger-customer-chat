@@ -56,6 +56,12 @@
     "react-dom": "^16.2.0",
     "rimraf": "^2.6.2"
   },
+  "jest": {
+    "testPathIgnorePatterns": [
+      "/node_modules/",
+      "/example/"
+    ]
+  },
   "lint-staged": {
     "*.js": [
       "eslint --fix",

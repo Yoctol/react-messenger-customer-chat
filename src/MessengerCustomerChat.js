@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-export default class FacebookCustomerChat extends Component {
+export default class MessengerCustomerChat extends Component {
   static propTypes = {
     pageId: PropTypes.string.isRequired,
     ref: PropTypes.string,
@@ -16,6 +16,8 @@ export default class FacebookCustomerChat extends Component {
   };
 
   static defaultProps = {
+    ref: undefined,
+    minimized: undefined,
     autoLoad: false,
     autoLogAppEvents: true,
     xfbml: true,

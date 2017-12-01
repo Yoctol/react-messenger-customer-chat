@@ -1,3 +1,3 @@
-import FacebookCustomerChat from './FacebookCustomerChat';
+import MessengerCustomerChat from './MessengerCustomerChat';
 
-module.exports = FacebookCustomerChat;
+module.exports = MessengerCustomerChat;
