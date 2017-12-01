@@ -7,7 +7,6 @@ export default class MessengerCustomerChat extends Component {
     ref: PropTypes.string,
     minimized: PropTypes.bool,
 
-    autoLoad: PropTypes.bool,
     appId: PropTypes.string.isRequired,
     autoLogAppEvents: PropTypes.bool,
     xfbml: PropTypes.bool,
@@ -18,41 +17,19 @@ export default class MessengerCustomerChat extends Component {
   static defaultProps = {
     ref: undefined,
     minimized: undefined,
-    autoLoad: false,
+
     autoLogAppEvents: true,
     xfbml: true,
     version: '2.11',
     language: 'en_US',
   };
 
-  state = {
-    isSdkLoaded: false,
-  };
-
   componentDidMount() {
-    this._isMounted = true;
     if (document.getElementById('facebook-jssdk')) {
-      this.sdkLoaded();
       return;
     }
     this.setFbAsyncInit();
     this.loadSdkAsynchronously();
-    let fbRoot = document.getElementById('fb-root');
-    if (!fbRoot) {
-      fbRoot = document.createElement('div');
-      fbRoot.id = 'fb-root';
-      document.body.appendChild(fbRoot);
-    }
-  }
-
-  componentWillUnmount() {
-    this._isMounted = false;
-  }
-
-  setStateIfMounted(state) {
-    if (this._isMounted) {
-      this.setState(state);
-    }
   }
 
   setFbAsyncInit() {
@@ -64,12 +41,7 @@ export default class MessengerCustomerChat extends Component {
         xfbml,
         version: `v${version}`,
       });
-      this.setStateIfMounted({ isSdkLoaded: true });
     };
-  }
-
-  sdkLoaded() {
-    this.setState({ isSdkLoaded: true });
   }
 
   loadSdkAsynchronously() {
