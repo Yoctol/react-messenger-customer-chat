@@ -27,13 +27,12 @@ ReactDOM.render(
   <MessengerCustomerChat
     pageId="<PAGE_ID>"
     appId="<APP_ID>"
-    autoLoad={true}
-    ref="<OPTIONAL_WEBHOOK_PARAM>"
-    minimized={true}
   />,
   document.getElementById('demo')
 );
 ```
+
+> Note: It will handle sdk initialize automatically for you. See more details in [fbsdk official docs](https://developers.facebook.com/docs/javascript/quickstart/).
 
 ## Props
 
@@ -48,6 +47,7 @@ static propTypes = {
   xfbml: PropTypes.bool,
   version: PropTypes.string,
   language: PropTypes.string,
+  debug: PropTypes.bool,
 };
 
 static defaultProps = {
@@ -57,6 +57,7 @@ static defaultProps = {
   xfbml: true,
   version: '2.11',
   language: 'en_US',
+  debug: false,
 };
 ```
 
