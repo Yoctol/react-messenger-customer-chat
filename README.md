@@ -10,6 +10,13 @@
 ![](https://user-images.githubusercontent.com/3382565/33435564-6ed7df66-d61d-11e7-8b6c-fdb2d36f0ff9.png)
 ![](https://user-images.githubusercontent.com/3382565/33435563-6eacb444-d61d-11e7-85a7-a5d29a418f25.png)
 
+## Prerequisite
+
+Whitelist your domain to connect your Facebook Page to your website via the Facebook tool. 
+
+- From UI: Facebook Page Settings > Messenger Platform > Whitelisted Domains
+- From API: Use HTTP API or API client likes [messaging-api-messenger](https://github.com/Yoctol/messaging-apis/tree/master/packages/messaging-api-messenger#setwhitelisteddomainsdomains)
+
 ## Installation
 
 ```sh
