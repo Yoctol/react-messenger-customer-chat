@@ -35,6 +35,31 @@ ReactDOM.render(
 );
 ```
 
+## Props
+
+```js
+static propTypes = {
+  pageId: PropTypes.string.isRequired,
+  appId: PropTypes.string.isRequired,
+
+  ref: PropTypes.string,
+  minimized: PropTypes.bool,
+  autoLogAppEvents: PropTypes.bool,
+  xfbml: PropTypes.bool,
+  version: PropTypes.string,
+  language: PropTypes.string,
+};
+
+static defaultProps = {
+  ref: undefined,
+  minimized: undefined,
+  autoLogAppEvents: true,
+  xfbml: true,
+  version: '2.11',
+  language: 'en_US',
+};
+```
+
 ## License
 
 MIT © [Yoctol](https://github.com/Yoctol/react-messenger-customer-chat)

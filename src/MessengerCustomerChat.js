@@ -4,10 +4,10 @@ import PropTypes from 'prop-types';
 export default class MessengerCustomerChat extends Component {
   static propTypes = {
     pageId: PropTypes.string.isRequired,
+    appId: PropTypes.string.isRequired,
+
     ref: PropTypes.string,
     minimized: PropTypes.bool,
-
-    appId: PropTypes.string.isRequired,
     autoLogAppEvents: PropTypes.bool,
     xfbml: PropTypes.bool,
     version: PropTypes.string,
@@ -17,7 +17,6 @@ export default class MessengerCustomerChat extends Component {
   static defaultProps = {
     ref: undefined,
     minimized: undefined,
-
     autoLogAppEvents: true,
     xfbml: true,
     version: '2.11',
