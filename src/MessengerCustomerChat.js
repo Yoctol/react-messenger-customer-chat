@@ -12,6 +12,7 @@ export default class MessengerCustomerChat extends Component {
     xfbml: PropTypes.bool,
     version: PropTypes.string,
     language: PropTypes.string,
+    debug: PropTypes.bool,
   };
 
   static defaultProps = {
@@ -21,6 +22,7 @@ export default class MessengerCustomerChat extends Component {
     xfbml: true,
     version: '2.11',
     language: 'en_US',
+    debug: false,
   };
 
   componentDidMount() {
@@ -44,13 +46,13 @@ export default class MessengerCustomerChat extends Component {
   }
 
   loadSdkAsynchronously() {
-    const { language } = this.props;
+    const { language, debug } = this.props;
     /* eslint-disable */
     (function(d, s, id){
      var js, fjs = d.getElementsByTagName(s)[0];
      if (d.getElementById(id)) {return;}
      js = d.createElement(s); js.id = id;
-     js.src = `https://connect.facebook.net/${language}/sdk.js`;
+     js.src = `https://connect.facebook.net/${language}/sdk${debug ? '/debug' : ''}.js`;
      fjs.parentNode.insertBefore(js, fjs);
    }(document, 'script', 'facebook-jssdk'));
    /* eslint-enable */
