@@ -12,10 +12,12 @@
 
 ## Prerequisite
 
-Whitelist your domain to connect your Facebook Page to your website via the Facebook tool. 
+Whitelist your domain to connect your Facebook Page to your website via the
+Facebook tool.
 
-- From UI: Facebook Page Settings > Messenger Platform > Whitelisted Domains
-- From API: Use HTTP API or API client likes [messaging-api-messenger](https://github.com/Yoctol/messaging-apis/tree/master/packages/messaging-api-messenger#setwhitelisteddomainsdomains)
+* From UI: Facebook Page Settings > Messenger Platform > Whitelisted Domains
+* From API: Use HTTP API or API client likes
+  [messaging-api-messenger](https://github.com/Yoctol/messaging-apis/tree/master/packages/messaging-api-messenger#setwhitelisteddomainsdomains)
 
 ## Installation
 
@@ -34,12 +36,14 @@ ReactDOM.render(
   <MessengerCustomerChat
     pageId="<PAGE_ID>"
     appId="<APP_ID>"
+    htmlRef="<REF_STRING>"
   />,
   document.getElementById('demo')
 );
 ```
 
-> Note: It will handle sdk initialize automatically for you. See more details in [fbsdk official docs](https://developers.facebook.com/docs/javascript/quickstart/).
+> Note: It will handle sdk initialize automatically for you. See more details in
+> [fbsdk official docs](https://developers.facebook.com/docs/javascript/quickstart/).
 
 ## Props
 
@@ -48,7 +52,7 @@ static propTypes = {
   pageId: PropTypes.string.isRequired,
   appId: PropTypes.string.isRequired,
 
-  ref: PropTypes.string,
+  htmlRef: PropTypes.string,
   minimized: PropTypes.bool,
   autoLogAppEvents: PropTypes.bool,
   xfbml: PropTypes.bool,
@@ -58,7 +62,7 @@ static propTypes = {
 };
 
 static defaultProps = {
-  ref: undefined,
+  htmlRef: undefined,
   minimized: undefined,
   autoLogAppEvents: true,
   xfbml: true,
