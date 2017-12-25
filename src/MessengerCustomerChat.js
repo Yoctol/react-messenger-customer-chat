@@ -71,9 +71,7 @@ export default class MessengerCustomerChat extends Component {
     const minimizedAttribute = minimized ? `minimized="${minimized}"` : '';
 
     return {
-      __html: `<div class="fb-customerchat" page_id="${pageId}" ${
-        refAttribute
-      } ${minimizedAttribute}></div>`,
+      __html: `<div class="fb-customerchat" page_id="${pageId}" ${refAttribute} ${minimizedAttribute}></div>`,
     };
   }
 
