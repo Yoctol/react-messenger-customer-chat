@@ -8,6 +8,9 @@ export default class MessengerCustomerChat extends Component {
 
     htmlRef: PropTypes.string,
     minimized: PropTypes.bool,
+    themeColor: PropTypes.string,
+    loggedInGreeting: PropTypes.string,
+    loggedOutGreeting: PropTypes.string,
     autoLogAppEvents: PropTypes.bool,
     xfbml: PropTypes.bool,
     version: PropTypes.string,
@@ -18,6 +21,9 @@ export default class MessengerCustomerChat extends Component {
   static defaultProps = {
     htmlRef: undefined,
     minimized: undefined,
+    themeColor: undefined,
+    loggedInGreeting: undefined,
+    loggedOutGreeting: undefined,
     autoLogAppEvents: true,
     xfbml: true,
     version: '2.11',
@@ -65,13 +71,27 @@ export default class MessengerCustomerChat extends Component {
   }
 
   createMarkup() {
-    const { pageId, htmlRef, minimized } = this.props;
+    const {
+      pageId,
+      htmlRef,
+      minimized,
+      themeColor,
+      loggedInGreeting,
+      loggedOutGreeting,
+    } = this.props;
 
     const refAttribute = htmlRef ? `ref="${htmlRef}"` : '';
     const minimizedAttribute = minimized ? `minimized="${minimized}"` : '';
+    const themeColorAttribute = themeColor ? `theme_color="${themeColor}"` : '';
+    const loggedInGreetingAttribute = loggedInGreeting
+      ? `logged_in_greeting="${loggedInGreeting}"`
+      : '';
+    const loggedOutGreetingAttribute = loggedOutGreeting
+      ? `logged_out_greeting="${loggedOutGreeting}"`
+      : '';
 
     return {
-      __html: `<div class="fb-customerchat" page_id="${pageId}" ${refAttribute} ${minimizedAttribute}></div>`,
+      __html: `<div class="fb-customerchat" page_id="${pageId}" ${refAttribute} ${minimizedAttribute} ${themeColorAttribute} ${loggedInGreetingAttribute} ${loggedOutGreetingAttribute}></div>`,
     };
   }
 
