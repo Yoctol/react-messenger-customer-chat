@@ -55,6 +55,9 @@ static propTypes = {
 
   htmlRef: PropTypes.string,
   minimized: PropTypes.bool,
+  themeColor: PropTypes.string,
+  loggedInGreeting: PropTypes.string,
+  loggedOutGreeting: PropTypes.string,
   autoLogAppEvents: PropTypes.bool,
   xfbml: PropTypes.bool,
   version: PropTypes.string,
@@ -65,6 +68,9 @@ static propTypes = {
 static defaultProps = {
   htmlRef: undefined,
   minimized: undefined,
+  themeColor: undefined,
+  loggedInGreeting: undefined,
+  loggedOutGreeting: undefined,
   autoLogAppEvents: true,
   xfbml: true,
   version: '2.11',
