@@ -1,6 +1,6 @@
 # 0.4.1 / 2018-03-14
 
-* [fix] Fix `false` value pass to `minimized`.
+* [fix] Fix passing `false` value to `minimized`.
 
 # 0.4.0 / 2018-02-05
 
