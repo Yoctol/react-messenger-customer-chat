@@ -80,18 +80,30 @@ export default class MessengerCustomerChat extends Component {
       loggedOutGreeting,
     } = this.props;
 
-    const refAttribute = htmlRef ? `ref="${htmlRef}"` : '';
-    const minimizedAttribute = minimized ? `minimized="${minimized}"` : '';
-    const themeColorAttribute = themeColor ? `theme_color="${themeColor}"` : '';
-    const loggedInGreetingAttribute = loggedInGreeting
-      ? `logged_in_greeting="${loggedInGreeting}"`
-      : '';
-    const loggedOutGreetingAttribute = loggedOutGreeting
-      ? `logged_out_greeting="${loggedOutGreeting}"`
-      : '';
+    const refAttribute = htmlRef !== undefined ? `ref="${htmlRef}"` : '';
+    const minimizedAttribute =
+      minimized !== undefined ? `minimized="${minimized}"` : '';
+    const themeColorAttribute =
+      themeColor !== undefined ? `theme_color="${themeColor}"` : '';
+    const loggedInGreetingAttribute =
+      loggedInGreeting !== undefined
+        ? `logged_in_greeting="${loggedInGreeting}"`
+        : '';
+    const loggedOutGreetingAttribute =
+      loggedOutGreeting !== undefined
+        ? `logged_out_greeting="${loggedOutGreeting}"`
+        : '';
 
     return {
-      __html: `<div class="fb-customerchat" page_id="${pageId}" ${refAttribute} ${minimizedAttribute} ${themeColorAttribute} ${loggedInGreetingAttribute} ${loggedOutGreetingAttribute}></div>`,
+      __html: `<div
+        class="fb-customerchat"
+        page_id="${pageId}"
+        ${refAttribute}
+        ${minimizedAttribute}
+        ${themeColorAttribute}
+        ${loggedInGreetingAttribute}
+        ${loggedOutGreetingAttribute}
+      ></div>`,
     };
   }
 

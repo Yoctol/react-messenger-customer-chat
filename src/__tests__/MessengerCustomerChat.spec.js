@@ -53,14 +53,18 @@ describe('<MessengerCustomerChat />', () => {
 
   it('render minimized to DOM element', () => {
     const wrapper = mount(
-      <MessengerCustomerChat pageId="<PAGE_ID>" appId="<APP_ID>" minimized />
+      <MessengerCustomerChat
+        pageId="<PAGE_ID>"
+        appId="<APP_ID>"
+        minimized={false}
+      />
     );
     expect(
       wrapper
         .render()
         .find('.fb-customerchat')
         .prop('minimized')
-    ).toBe('true');
+    ).toBe('false');
   });
 
   it('render theme_color, logged_in_greeting and logged_out_greeting to DOM element', () => {
