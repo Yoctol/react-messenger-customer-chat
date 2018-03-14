@@ -75,24 +75,15 @@ describe('<MessengerCustomerChat />', () => {
       />
     );
 
-    expect(
-      wrapper
-        .render()
-        .find('.fb-customerchat')
-        .prop('theme_color')
-    ).toBe('#0084FF');
-    expect(
-      wrapper
-        .render()
-        .find('.fb-customerchat')
-        .prop('logged_in_greeting')
-    ).toBe('this is a logged_in_greeting');
-    expect(
-      wrapper
-        .render()
-        .find('.fb-customerchat')
-        .prop('logged_out_greeting')
-    ).toBe('this is a logged_out_greeting');
+    const customerchat = wrapper.render().find('.fb-customerchat');
+
+    expect(customerchat.prop('theme_color')).toBe('#0084FF');
+    expect(customerchat.prop('logged_in_greeting')).toBe(
+      'this is a logged_in_greeting'
+    );
+    expect(customerchat.prop('logged_out_greeting')).toBe(
+      'this is a logged_out_greeting'
+    );
   });
 
   it('define fbAsyncInit and call loadSdkAsynchronously when facebook-jssdk does not exist', () => {
