@@ -15,7 +15,10 @@ class App extends Component {
         <p className="App-intro">
           To get started, edit <code>src/App.js</code> and save to reload.
         </p>
-        <MessengerCustomerChat pageId="<PAGE_ID>" appId="<APP_ID>" />
+        <MessengerCustomerChat
+          pageId="1895382890692545"
+          appId="215971755540323"
+        />
       </div>
     );
   }
