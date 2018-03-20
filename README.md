@@ -82,6 +82,8 @@ static defaultProps = {
 ## Related
 
 * [react-messenger-checkbox](https://github.com/Yoctol/react-messenger-checkbox) - React component for messenger checkbox plugin.
+* [react-messenger-message-us](https://github.com/Yoctol/react-messenger-message-us) - React component for messenger message us plugin.
+* [react-messenger-send-to-messenger](https://github.com/Yoctol/react-messenger-send-to-messenger) - React component for messenger send to messenger plugin.
 * [messaging-api-messenger](https://github.com/Yoctol/messaging-apis/tree/master/packages/messaging-api-messenger) - Messaging APIs for Messenger.
 * [bottender](https://github.com/Yoctol/bottender) - Make Bots in Your Way, Fast and Flexibly.
 
