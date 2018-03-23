@@ -90,6 +90,22 @@ describe('<MessengerCustomerChat />', () => {
     );
   });
 
+  it('render greeting_dialog_display and greeting_dialog_delay to DOM element', () => {
+    const wrapper = mount(
+      <MessengerCustomerChat
+        pageId="<PAGE_ID>"
+        appId="<APP_ID>"
+        greetingDialogDisplay="show"
+        greetingDialogDelay={3}
+      />
+    );
+
+    const customerchat = wrapper.render().find('.fb-customerchat');
+
+    expect(customerchat.prop('greeting_dialog_display')).toBe('show');
+    expect(customerchat.prop('greeting_dialog_delay')).toBe('3');
+  });
+
   it('define fbAsyncInit and call loadSdkAsynchronously when facebook-jssdk does not exist', () => {
     mount(<MessengerCustomerChat pageId="<PAGE_ID>" appId="<APP_ID>" />);
 
