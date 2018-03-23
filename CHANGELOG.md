@@ -1,3 +1,17 @@
+# 0.5.0 / 2018-03-23
+
+* [new] Support more customizing options, `greetingDialogDisplay` and `greetingDialogDelay`:
+
+```jsx
+<MessengerCustomerChat
+  pageId="<PAGE_ID>"
+  appId="<APP_ID>"
+  htmlRef="<REF_STRING>"
+  greetingDialogDisplay="show"
+  greetingDialogDelay={3}
+/>
+```
+
 # 0.4.1 / 2018-03-14
 
 * [fix] Fix passing `false` value to `minimized`.
