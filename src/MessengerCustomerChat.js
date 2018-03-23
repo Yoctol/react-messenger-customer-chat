@@ -11,6 +11,8 @@ export default class MessengerCustomerChat extends Component {
     themeColor: PropTypes.string,
     loggedInGreeting: PropTypes.string,
     loggedOutGreeting: PropTypes.string,
+    greetingDialogDisplay: PropTypes.oneOf(['show', 'hide', 'fade']),
+    greetingDialogDelay: PropTypes.number,
     autoLogAppEvents: PropTypes.bool,
     xfbml: PropTypes.bool,
     version: PropTypes.string,
@@ -24,6 +26,8 @@ export default class MessengerCustomerChat extends Component {
     themeColor: undefined,
     loggedInGreeting: undefined,
     loggedOutGreeting: undefined,
+    greetingDialogDisplay: undefined,
+    greetingDialogDelay: undefined,
     autoLogAppEvents: true,
     xfbml: true,
     version: '2.11',
@@ -78,6 +82,8 @@ export default class MessengerCustomerChat extends Component {
       themeColor,
       loggedInGreeting,
       loggedOutGreeting,
+      greetingDialogDisplay,
+      greetingDialogDelay,
     } = this.props;
 
     const refAttribute = htmlRef !== undefined ? `ref="${htmlRef}"` : '';
@@ -93,6 +99,14 @@ export default class MessengerCustomerChat extends Component {
       loggedOutGreeting !== undefined
         ? `logged_out_greeting="${loggedOutGreeting}"`
         : '';
+    const greetingDialogDisplayAttribute =
+      greetingDialogDisplay !== undefined
+        ? `greeting_dialog_display="${greetingDialogDisplay}"`
+        : '';
+    const greetingDialogDelayAttribute =
+      greetingDialogDelay !== undefined
+        ? `greeting_dialog_delay="${greetingDialogDelay}"`
+        : '';
 
     return {
       __html: `<div
@@ -103,6 +117,8 @@ export default class MessengerCustomerChat extends Component {
         ${themeColorAttribute}
         ${loggedInGreetingAttribute}
         ${loggedOutGreetingAttribute}
+        ${greetingDialogDisplayAttribute}
+        ${greetingDialogDelayAttribute}
       ></div>`,
     };
   }
