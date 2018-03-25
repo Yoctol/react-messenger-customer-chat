@@ -6,69 +6,59 @@ import MessengerCustomerChat from '../MessengerCustomerChat';
 
 Enzyme.configure({ adapter: new Adapter() });
 
+function render(element) {
+  const customerchat = mount(element)
+    .render()
+    .find('.fb-customerchat');
+
+  return {
+    customerchat,
+  };
+}
+
 beforeEach(() => {
-  MessengerCustomerChat.prototype.loadSdkAsynchronously = jest.fn();
+  MessengerCustomerChat.prototype.loadSDKAsynchronously = jest.fn();
 });
 
 describe('<MessengerCustomerChat />', () => {
   it('render page_id to DOM element', () => {
-    const wrapper = mount(
+    const { customerchat } = render(
       <MessengerCustomerChat pageId="<PAGE_ID>" appId="<APP_ID>" />
     );
-    expect(
-      wrapper
-        .render()
-        .find('.fb-customerchat')
-        .prop('page_id')
-    ).toBe('<PAGE_ID>');
+    expect(customerchat.prop('page_id')).toBe('<PAGE_ID>');
   });
 
   it('render no ref to DOM element', () => {
-    const wrapper = mount(
+    const { customerchat } = render(
       <MessengerCustomerChat pageId="<PAGE_ID>" appId="<APP_ID>" />
     );
-    expect(
-      wrapper
-        .render()
-        .find('.fb-customerchat')
-        .prop('ref')
-    ).toBeUndefined();
+    expect(customerchat.prop('ref')).toBeUndefined();
   });
 
   it('render htmlRef as ref to DOM element', () => {
-    const wrapper = mount(
+    const { customerchat } = render(
       <MessengerCustomerChat
         pageId="<PAGE_ID>"
         appId="<APP_ID>"
         htmlRef="<REF>"
       />
     );
-    expect(
-      wrapper
-        .render()
-        .find('.fb-customerchat')
-        .prop('ref')
-    ).toBe('<REF>');
+    expect(customerchat.prop('ref')).toBe('<REF>');
   });
 
   it('render minimized to DOM element', () => {
-    const wrapper = mount(
+    const { customerchat } = render(
       <MessengerCustomerChat
         pageId="<PAGE_ID>"
         appId="<APP_ID>"
         minimized={false}
       />
     );
-    expect(
-      wrapper
-        .render()
-        .find('.fb-customerchat')
-        .prop('minimized')
-    ).toBe('false');
+    expect(customerchat.prop('minimized')).toBe('false');
   });
 
   it('render theme_color, logged_in_greeting and logged_out_greeting to DOM element', () => {
-    const wrapper = mount(
+    const { customerchat } = render(
       <MessengerCustomerChat
         pageId="<PAGE_ID>"
         appId="<APP_ID>"
@@ -78,8 +68,6 @@ describe('<MessengerCustomerChat />', () => {
         loggedOutGreeting="this is a logged_out_greeting"
       />
     );
-
-    const customerchat = wrapper.render().find('.fb-customerchat');
 
     expect(customerchat.prop('theme_color')).toBe('#0084FF');
     expect(customerchat.prop('logged_in_greeting')).toBe(
@@ -91,7 +79,7 @@ describe('<MessengerCustomerChat />', () => {
   });
 
   it('render greeting_dialog_display and greeting_dialog_delay to DOM element', () => {
-    const wrapper = mount(
+    const { customerchat } = render(
       <MessengerCustomerChat
         pageId="<PAGE_ID>"
         appId="<APP_ID>"
@@ -100,36 +88,18 @@ describe('<MessengerCustomerChat />', () => {
       />
     );
 
-    const customerchat = wrapper.render().find('.fb-customerchat');
-
     expect(customerchat.prop('greeting_dialog_display')).toBe('show');
     expect(customerchat.prop('greeting_dialog_delay')).toBe('3');
   });
 
-  it('define fbAsyncInit and call loadSdkAsynchronously when facebook-jssdk does not exist', () => {
+  it('define fbAsyncInit and call loadSDKAsynchronously when facebook-jssdk does not exist', () => {
     mount(<MessengerCustomerChat pageId="<PAGE_ID>" appId="<APP_ID>" />);
 
     expect(global.fbAsyncInit).toBeDefined();
-    expect(MessengerCustomerChat.prototype.loadSdkAsynchronously).toBeCalled();
+    expect(MessengerCustomerChat.prototype.loadSDKAsynchronously).toBeCalled();
   });
 
-  it('should not call loadSdkAsynchronously when facebook-jssdk exists', () => {
-    const div = global.document.createElement('div');
-    div.id = 'facebook-jssdk';
-    global.document.body.appendChild(div);
-
-    mount(<MessengerCustomerChat pageId="<PAGE_ID>" appId="<APP_ID>" />);
-
-    expect(
-      MessengerCustomerChat.prototype.loadSdkAsynchronously
-    ).not.toBeCalled();
-  });
-
-  it('define fbAsyncInit and call loadSdkAsynchronously when facebook-jssdk does not exist', () => {
-    global.FB = {
-      init: jest.fn(),
-    };
-
+  it('define fbAsyncInit and call loadSDKAsynchronously when facebook-jssdk does not exist', () => {
     mount(
       <MessengerCustomerChat
         pageId="<PAGE_ID>"
@@ -139,6 +109,10 @@ describe('<MessengerCustomerChat />', () => {
         version="2.11"
       />
     );
+
+    global.FB = {
+      init: jest.fn(),
+    };
 
     global.fbAsyncInit();
 
