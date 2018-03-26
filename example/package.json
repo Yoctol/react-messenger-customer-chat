@@ -1,17 +1,18 @@
 {
+  "private": true,
   "name": "example",
   "version": "0.1.0",
-  "private": true,
+  "scripts": {
+    "build": "react-scripts build",
+    "eject": "react-scripts eject",
+    "start": "react-scripts start",
+    "test": "react-scripts test --env=jsdom"
+  },
   "dependencies": {
+    "lodash": "^4.17.5",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
     "react-messenger-customer-chat": "latest",
     "react-scripts": "1.0.17"
-  },
-  "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject"
   }
 }
