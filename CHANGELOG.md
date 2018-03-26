@@ -1,3 +1,7 @@
+# 0.6.0 / 2018-03-26
+
+* [new] reload fbsdk when componentDidMount and props change #18
+
 # 0.5.0 / 2018-03-23
 
 * [new] Support more customizing options, `greetingDialogDisplay` and `greetingDialogDelay`:
