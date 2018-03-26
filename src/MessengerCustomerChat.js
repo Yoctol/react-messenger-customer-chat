@@ -36,11 +36,30 @@ export default class MessengerCustomerChat extends Component {
   };
 
   componentDidMount() {
-    if (document.getElementById('facebook-jssdk')) {
-      return;
-    }
     this.setFbAsyncInit();
-    this.loadSdkAsynchronously();
+    this.reloadSDKAsynchronously();
+  }
+
+  componentDidUpdate(prevProps) {
+    if (
+      prevProps.pageId !== this.props.pageId ||
+      prevProps.appId !== this.props.appId ||
+      prevProps.htmlRef !== this.props.htmlRef ||
+      prevProps.minimized !== this.props.minimized ||
+      prevProps.themeColor !== this.props.themeColor ||
+      prevProps.loggedInGreeting !== this.props.loggedInGreeting ||
+      prevProps.loggedOutGreeting !== this.props.loggedOutGreeting ||
+      prevProps.greetingDialogDisplay !== this.props.greetingDialogDisplay ||
+      prevProps.greetingDialogDelay !== this.props.greetingDialogDelay ||
+      prevProps.autoLogAppEvents !== this.props.autoLogAppEvents ||
+      prevProps.xfbml !== this.props.xfbml ||
+      prevProps.version !== this.props.version ||
+      prevProps.language !== this.props.language ||
+      prevProps.debug !== this.props.debug
+    ) {
+      this.setFbAsyncInit();
+      this.reloadSDKAsynchronously();
+    }
   }
 
   setFbAsyncInit() {
@@ -55,7 +74,7 @@ export default class MessengerCustomerChat extends Component {
     };
   }
 
-  loadSdkAsynchronously() {
+  loadSDKAsynchronously() {
     const { language, debug } = this.props;
     /* eslint-disable */
     (function(d, s, id) {
@@ -72,6 +91,23 @@ export default class MessengerCustomerChat extends Component {
       fjs.parentNode.insertBefore(js, fjs);
     })(document, 'script', 'facebook-jssdk');
     /* eslint-enable */
+  }
+
+  removeFacebookSDK() {
+    const fbjssdk = document.getElementById('facebook-jssdk');
+    if (fbjssdk) {
+      document.body.removeChild(fbjssdk);
+    }
+    const fbroot = document.getElementById('fb-root');
+    if (fbroot) {
+      document.body.removeChild(fbroot);
+    }
+    delete window.FB;
+  }
+
+  reloadSDKAsynchronously() {
+    this.removeFacebookSDK();
+    this.loadSDKAsynchronously();
   }
 
   createMarkup() {
@@ -124,6 +160,8 @@ export default class MessengerCustomerChat extends Component {
   }
 
   render() {
-    return <div dangerouslySetInnerHTML={this.createMarkup()} />;
+    // Add a random key to rerender. Reference:
+    // https://stackoverflow.com/questions/30242530/dangerouslysetinnerhtml-doesnt-update-during-render
+    return <div key={Date()} dangerouslySetInnerHTML={this.createMarkup()} />;
   }
 }
