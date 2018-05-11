@@ -78,8 +78,7 @@ export default class MessengerCustomerChat extends Component {
     const { language, debug } = this.props;
     /* eslint-disable */
     (function(d, s, id) {
-      var js,
-        fjs = d.getElementsByTagName(s)[0];
+      var js;
       if (d.getElementById(id)) {
         return;
       }
@@ -88,7 +87,7 @@ export default class MessengerCustomerChat extends Component {
       js.src = `https://connect.facebook.net/${language}/sdk${
         debug ? '/debug' : ''
       }.js`;
-      fjs.parentNode.insertBefore(js, fjs);
+      d.body.prepend(js);
     })(document, 'script', 'facebook-jssdk');
     /* eslint-enable */
   }
