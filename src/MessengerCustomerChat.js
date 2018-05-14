@@ -6,6 +6,8 @@ export default class MessengerCustomerChat extends Component {
     pageId: PropTypes.string.isRequired,
     appId: PropTypes.string.isRequired,
 
+    shouldShowPlugin: PropTypes.bool,
+    shouldShowDialog: PropTypes.bool,
     htmlRef: PropTypes.string,
     minimized: PropTypes.bool,
     themeColor: PropTypes.string,
@@ -18,9 +20,15 @@ export default class MessengerCustomerChat extends Component {
     version: PropTypes.string,
     language: PropTypes.string,
     debug: PropTypes.bool,
+    onCustomerChatShow: PropTypes.func,
+    onCustomerChatHide: PropTypes.func,
+    onCustomerChatDialogShow: PropTypes.func,
+    onCustomerChatDialogHide: PropTypes.func,
   };
 
   static defaultProps = {
+    shouldShowPlugin: true,
+    shouldShowDialog: false,
     htmlRef: undefined,
     minimized: undefined,
     themeColor: undefined,
@@ -33,17 +41,29 @@ export default class MessengerCustomerChat extends Component {
     version: '2.11',
     language: 'en_US',
     debug: false,
+    onCustomerChatShow: undefined,
+    onCustomerChatHide: undefined,
+    onCustomerChatDialogShow: undefined,
+    onCustomerChatDialogHide: undefined,
+  };
+
+  state = {
+    fbLoaded: false,
   };
 
   componentDidMount() {
     this.setFbAsyncInit();
     this.reloadSDKAsynchronously();
+    this.controlsPlugin();
+    this.subscribeEvents();
   }
 
   componentDidUpdate(prevProps) {
     if (
       prevProps.pageId !== this.props.pageId ||
       prevProps.appId !== this.props.appId ||
+      prevProps.shouldShowPlugin !== this.props.shouldShowPlugin ||
+      prevProps.shouldShowDialog !== this.props.shouldShowDialog ||
       prevProps.htmlRef !== this.props.htmlRef ||
       prevProps.minimized !== this.props.minimized ||
       prevProps.themeColor !== this.props.themeColor ||
@@ -59,11 +79,14 @@ export default class MessengerCustomerChat extends Component {
     ) {
       this.setFbAsyncInit();
       this.reloadSDKAsynchronously();
+      this.controlsPlugin();
+      this.subscribeEvents();
     }
   }
 
   setFbAsyncInit() {
     const { appId, autoLogAppEvents, xfbml, version } = this.props;
+
     window.fbAsyncInit = () => {
       window.FB.init({
         appId,
@@ -71,42 +94,99 @@ export default class MessengerCustomerChat extends Component {
         xfbml,
         version: `v${version}`,
       });
+      this.setState({ fbLoaded: true });
     };
   }
 
   loadSDKAsynchronously() {
     const { language, debug } = this.props;
     /* eslint-disable */
-    (function(d, s, id) {
-      var js;
-      if (d.getElementById(id)) {
+    (function(d, s, ids) {
+      var js, customerChatJs;
+      if (d.getElementById(ids[0]) && d.getElementById(ids[1])) {
         return;
       }
       js = d.createElement(s);
-      js.id = id;
+      customerChatJs = d.createElement(s);
+      js.id = ids[0];
+      customerChatJs.id = ids[1];
       js.src = `https://connect.facebook.net/${language}/sdk${
         debug ? '/debug' : ''
       }.js`;
+      customerChatJs.src =
+        '//connect.facebook.net/en_US/sdk/xfbml.customerchat.js';
       d.body.prepend(js);
-    })(document, 'script', 'facebook-jssdk');
+      d.body.prepend(customerChatJs);
+    })(document, 'script', ['facebook-jssdk', 'facebook-customer-chat-sdk']);
     /* eslint-enable */
   }
 
   removeFacebookSDK() {
-    const fbjssdk = document.getElementById('facebook-jssdk');
-    if (fbjssdk && fbjssdk.parentNode) {
-      fbjssdk.parentNode.removeChild(fbjssdk);
-    }
-    const fbroot = document.getElementById('fb-root');
-    if (fbroot && fbroot.parentNode) {
-      fbroot.parentNode.removeChild(fbroot);
-    }
+    const removeElementByIds = ids => {
+      ids.forEach(id => {
+        const element = document.getElementById(id);
+        if (element.parentNode) {
+          element.parentNode.removeChild(element);
+        }
+      });
+    };
+
+    removeElementByIds(['facebook-jssdk', 'fb-root']);
+
     delete window.FB;
   }
 
   reloadSDKAsynchronously() {
     this.removeFacebookSDK();
     this.loadSDKAsynchronously();
+  }
+
+  controlsPlugin() {
+    const { fbLoaded } = this.state;
+
+    if (fbLoaded) {
+      const { shouldShowPlugin, shouldShowDialog } = this.props;
+
+      window.FB.CustomerChat.show(shouldShowPlugin);
+
+      if (shouldShowDialog) {
+        window.FB.CustomerChat.showDialog();
+      } else {
+        window.FB.CustomerChat.hideDialog();
+      }
+    }
+  }
+
+  subscribeEvents() {
+    const { fbLoaded } = this.state;
+
+    if (fbLoaded) {
+      const {
+        onCustomerChatShow,
+        onCustomerChatHide,
+        onCustomerChatDialogShow,
+        onCustomerChatDialogHide,
+      } = this.props;
+
+      if (onCustomerChatShow) {
+        window.FB.Event.subscribe('customerchat.show', onCustomerChatShow);
+      }
+      if (onCustomerChatHide) {
+        window.FB.Event.subscribe('customerchat.hide', onCustomerChatHide);
+      }
+      if (onCustomerChatDialogShow) {
+        window.FB.Event.subscribe(
+          'customerchat.dialogShow',
+          onCustomerChatDialogShow
+        );
+      }
+      if (onCustomerChatDialogHide) {
+        window.FB.Event.subscribe(
+          'customerchat.dialogHide',
+          onCustomerChatDialogHide
+        );
+      }
+    }
   }
 
   createMarkup() {
