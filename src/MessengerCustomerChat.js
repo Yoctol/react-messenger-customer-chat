@@ -54,8 +54,6 @@ export default class MessengerCustomerChat extends Component {
   componentDidMount() {
     this.setFbAsyncInit();
     this.reloadSDKAsynchronously();
-    this.controlsPlugin();
-    this.subscribeEvents();
   }
 
   componentDidUpdate(prevProps) {
@@ -79,8 +77,6 @@ export default class MessengerCustomerChat extends Component {
     ) {
       this.setFbAsyncInit();
       this.reloadSDKAsynchronously();
-      this.controlsPlugin();
-      this.subscribeEvents();
     }
   }
 
@@ -94,6 +90,7 @@ export default class MessengerCustomerChat extends Component {
         xfbml,
         version: `v${version}`,
       });
+
       this.setState({ fbLoaded: true });
     };
   }
@@ -142,50 +139,42 @@ export default class MessengerCustomerChat extends Component {
   }
 
   controlsPlugin() {
-    const { fbLoaded } = this.state;
+    const { shouldShowPlugin, shouldShowDialog } = this.props;
 
-    if (fbLoaded) {
-      const { shouldShowPlugin, shouldShowDialog } = this.props;
+    window.FB.CustomerChat.show(shouldShowPlugin);
 
-      window.FB.CustomerChat.show(shouldShowPlugin);
-
-      if (shouldShowDialog) {
-        window.FB.CustomerChat.showDialog();
-      } else {
-        window.FB.CustomerChat.hideDialog();
-      }
+    if (shouldShowDialog) {
+      window.FB.CustomerChat.showDialog();
+    } else {
+      window.FB.CustomerChat.hideDialog();
     }
   }
 
   subscribeEvents() {
-    const { fbLoaded } = this.state;
+    const {
+      onCustomerChatShow,
+      onCustomerChatHide,
+      onCustomerChatDialogShow,
+      onCustomerChatDialogHide,
+    } = this.props;
 
-    if (fbLoaded) {
-      const {
-        onCustomerChatShow,
-        onCustomerChatHide,
-        onCustomerChatDialogShow,
-        onCustomerChatDialogHide,
-      } = this.props;
-
-      if (onCustomerChatShow) {
-        window.FB.Event.subscribe('customerchat.show', onCustomerChatShow);
-      }
-      if (onCustomerChatHide) {
-        window.FB.Event.subscribe('customerchat.hide', onCustomerChatHide);
-      }
-      if (onCustomerChatDialogShow) {
-        window.FB.Event.subscribe(
-          'customerchat.dialogShow',
-          onCustomerChatDialogShow
-        );
-      }
-      if (onCustomerChatDialogHide) {
-        window.FB.Event.subscribe(
-          'customerchat.dialogHide',
-          onCustomerChatDialogHide
-        );
-      }
+    if (onCustomerChatShow) {
+      window.FB.Event.subscribe('customerchat.show', onCustomerChatShow);
+    }
+    if (onCustomerChatHide) {
+      window.FB.Event.subscribe('customerchat.hide', onCustomerChatHide);
+    }
+    if (onCustomerChatDialogShow) {
+      window.FB.Event.subscribe(
+        'customerchat.dialogShow',
+        onCustomerChatDialogShow
+      );
+    }
+    if (onCustomerChatDialogHide) {
+      window.FB.Event.subscribe(
+        'customerchat.dialogHide',
+        onCustomerChatDialogHide
+      );
     }
   }
 
@@ -239,6 +228,12 @@ export default class MessengerCustomerChat extends Component {
   }
 
   render() {
+    const { fbLoaded } = this.state;
+
+    if (fbLoaded) {
+      this.controlsPlugin();
+      this.subscribeEvents();
+    }
     // Add a random key to rerender. Reference:
     // https://stackoverflow.com/questions/30242530/dangerouslysetinnerhtml-doesnt-update-during-render
     return <div key={Date()} dangerouslySetInnerHTML={this.createMarkup()} />;

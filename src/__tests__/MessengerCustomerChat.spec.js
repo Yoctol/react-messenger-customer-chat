@@ -97,7 +97,7 @@ describe('<MessengerCustomerChat />', () => {
     expect(customerchat.prop('greeting_dialog_delay')).toBe('3');
   });
 
-  it('define fbAsyncInit and call loadSDKAsynchronously when facebook-jssdk does not exist', () => {
+  it('define fbAsyncInit and call loadSDKAsynchronously', () => {
     mount(<MessengerCustomerChat pageId="<PAGE_ID>" appId="<APP_ID>" />);
 
     expect(global.fbAsyncInit).toBeDefined();
@@ -117,6 +117,14 @@ describe('<MessengerCustomerChat />', () => {
 
     global.FB = {
       init: jest.fn(),
+      Event: {
+        subscribe: jest.fn(),
+      },
+      CustomerChat: {
+        show: jest.fn(),
+        showDialog: jest.fn(),
+        hideDialog: jest.fn(),
+      },
     };
 
     global.fbAsyncInit();
@@ -127,5 +135,54 @@ describe('<MessengerCustomerChat />', () => {
       xfbml: true,
       version: 'v2.11',
     });
+  });
+
+  it('define event handlers props and call FB SDK', () => {
+    const onCustomerChatShow = () => {};
+    const onCustomerChatHide = () => {};
+    const onCustomerChatDialogShow = () => {};
+    const onCustomerChatDialogHide = () => {};
+
+    mount(
+      <MessengerCustomerChat
+        pageId="<PAGE_ID>"
+        appId="<APP_ID>"
+        onCustomerChatShow={onCustomerChatShow}
+        onCustomerChatHide={onCustomerChatHide}
+        onCustomerChatDialogShow={onCustomerChatDialogShow}
+        onCustomerChatDialogHide={onCustomerChatDialogHide}
+      />
+    );
+
+    global.FB = {
+      init: jest.fn(),
+      Event: {
+        subscribe: jest.fn(),
+      },
+      CustomerChat: {
+        show: jest.fn(),
+        showDialog: jest.fn(),
+        hideDialog: jest.fn(),
+      },
+    };
+
+    global.fbAsyncInit();
+
+    expect(global.FB.Event.subscribe).toBeCalledWith(
+      'customerchat.show',
+      onCustomerChatShow
+    );
+    expect(global.FB.Event.subscribe).toBeCalledWith(
+      'customerchat.hide',
+      onCustomerChatHide
+    );
+    expect(global.FB.Event.subscribe).toBeCalledWith(
+      'customerchat.dialogShow',
+      onCustomerChatDialogShow
+    );
+    expect(global.FB.Event.subscribe).toBeCalledWith(
+      'customerchat.dialogHide',
+      onCustomerChatDialogHide
+    );
   });
 });
