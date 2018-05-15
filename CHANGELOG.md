@@ -1,3 +1,7 @@
+# 0.6.1 / 2018-05-15
+
+* [fix] fix removing fbsdk error
+
 # 0.6.0 / 2018-03-26
 
 * [new] reload fbsdk when componentDidMount and props change #18
