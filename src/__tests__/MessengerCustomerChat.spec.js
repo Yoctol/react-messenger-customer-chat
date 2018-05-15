@@ -135,6 +135,37 @@ describe('<MessengerCustomerChat />', () => {
       xfbml: true,
       version: 'v2.11',
     });
+    expect(global.FB.CustomerChat.show).toBeCalledWith(true);
+    expect(global.FB.CustomerChat.hideDialog).toBeCalled();
+  });
+
+  it('define shouldShowPlugin, shouldShowDialog and call FB SDK', () => {
+    mount(
+      <MessengerCustomerChat
+        pageId="<PAGE_ID>"
+        appId="<APP_ID>"
+        shouldShowPlugin
+        shouldShowDialog
+      />
+    );
+
+    global.FB = {
+      init: jest.fn(),
+      Event: {
+        subscribe: jest.fn(),
+      },
+      CustomerChat: {
+        show: jest.fn(),
+        showDialog: jest.fn(),
+        hideDialog: jest.fn(),
+      },
+    };
+
+    global.fbAsyncInit();
+
+    expect(global.FB.CustomerChat.show).toBeCalledWith(true);
+    expect(global.FB.CustomerChat.showDialog).toBeCalled();
+    expect(global.FB.CustomerChat.hideDialog).not.toBeCalled();
   });
 
   it('define event handlers props and call FB SDK', () => {
