@@ -18,6 +18,11 @@ function render(element) {
 
 beforeEach(() => {
   MessengerCustomerChat.prototype.loadSDKAsynchronously = jest.fn();
+  document.getElementById = jest.fn(() => ({
+    parentNode: {
+      removeChild: jest.fn(),
+    },
+  }));
 });
 
 describe('<MessengerCustomerChat />', () => {
