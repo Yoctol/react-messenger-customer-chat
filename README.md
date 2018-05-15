@@ -44,7 +44,7 @@ ReactDOM.render(
 ```
 
 > Note: It will handle sdk initialize automatically for you. See more details in
-> [fbsdk official docs](https://developers.facebook.com/docs/javascript/quickstart/).
+> [Customer Chat Plugin official docs](https://developers.facebook.com/docs/messenger-platform/discovery/customer-chat-plugin) and [Customer Chat SDK official docs](https://developers.facebook.com/docs/messenger-platform/discovery/customer-chat-plugin/sdk).
 
 ## Props
 
@@ -53,6 +53,7 @@ static propTypes = {
   pageId: PropTypes.string.isRequired,
   appId: PropTypes.string.isRequired,
 
+  shouldShowDialog: PropTypes.bool,
   htmlRef: PropTypes.string,
   minimized: PropTypes.bool,
   themeColor: PropTypes.string,
@@ -65,9 +66,12 @@ static propTypes = {
   version: PropTypes.string,
   language: PropTypes.string,
   debug: PropTypes.bool,
+  onCustomerChatDialogShow: PropTypes.func,
+  onCustomerChatDialogHide: PropTypes.func,
 };
 
 static defaultProps = {
+  shouldShowDialog: false,
   htmlRef: undefined,
   minimized: undefined,
   themeColor: undefined,
@@ -80,6 +84,8 @@ static defaultProps = {
   version: '2.11',
   language: 'en_US',
   debug: false,
+  onCustomerChatDialogShow: undefined,
+  onCustomerChatDialogHide: undefined,
 };
 ```
 
