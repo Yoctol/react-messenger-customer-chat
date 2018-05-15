@@ -18,7 +18,6 @@ export default class MessengerCustomerChat extends Component {
     xfbml: PropTypes.bool,
     version: PropTypes.string,
     language: PropTypes.string,
-    debug: PropTypes.bool,
     onCustomerChatDialogShow: PropTypes.func,
     onCustomerChatDialogHide: PropTypes.func,
   };
@@ -36,7 +35,6 @@ export default class MessengerCustomerChat extends Component {
     xfbml: true,
     version: '2.11',
     language: 'en_US',
-    debug: false,
     onCustomerChatDialogShow: undefined,
     onCustomerChatDialogHide: undefined,
   };
@@ -66,8 +64,7 @@ export default class MessengerCustomerChat extends Component {
       prevProps.autoLogAppEvents !== this.props.autoLogAppEvents ||
       prevProps.xfbml !== this.props.xfbml ||
       prevProps.version !== this.props.version ||
-      prevProps.language !== this.props.language ||
-      prevProps.debug !== this.props.debug
+      prevProps.language !== this.props.language
     ) {
       this.setFbAsyncInit();
       this.reloadSDKAsynchronously();
