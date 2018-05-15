@@ -6,7 +6,6 @@ export default class MessengerCustomerChat extends Component {
     pageId: PropTypes.string.isRequired,
     appId: PropTypes.string.isRequired,
 
-    shouldShowPlugin: PropTypes.bool,
     shouldShowDialog: PropTypes.bool,
     htmlRef: PropTypes.string,
     minimized: PropTypes.bool,
@@ -20,14 +19,11 @@ export default class MessengerCustomerChat extends Component {
     version: PropTypes.string,
     language: PropTypes.string,
     debug: PropTypes.bool,
-    onCustomerChatShow: PropTypes.func,
-    onCustomerChatHide: PropTypes.func,
     onCustomerChatDialogShow: PropTypes.func,
     onCustomerChatDialogHide: PropTypes.func,
   };
 
   static defaultProps = {
-    shouldShowPlugin: true,
     shouldShowDialog: false,
     htmlRef: undefined,
     minimized: undefined,
@@ -41,14 +37,13 @@ export default class MessengerCustomerChat extends Component {
     version: '2.11',
     language: 'en_US',
     debug: false,
-    onCustomerChatShow: undefined,
-    onCustomerChatHide: undefined,
     onCustomerChatDialogShow: undefined,
     onCustomerChatDialogHide: undefined,
   };
 
   state = {
     fbLoaded: false,
+    shouldShowDialog: undefined,
   };
 
   componentDidMount() {
@@ -60,7 +55,6 @@ export default class MessengerCustomerChat extends Component {
     if (
       prevProps.pageId !== this.props.pageId ||
       prevProps.appId !== this.props.appId ||
-      prevProps.shouldShowPlugin !== this.props.shouldShowPlugin ||
       prevProps.shouldShowDialog !== this.props.shouldShowDialog ||
       prevProps.htmlRef !== this.props.htmlRef ||
       prevProps.minimized !== this.props.minimized ||
@@ -96,25 +90,19 @@ export default class MessengerCustomerChat extends Component {
   }
 
   loadSDKAsynchronously() {
-    const { language, debug } = this.props;
+    const { language } = this.props;
     /* eslint-disable */
-    (function(d, s, ids) {
-      var js, customerChatJs;
-      if (d.getElementById(ids[0]) && d.getElementById(ids[1])) {
+    (function(d, s, id) {
+      var js,
+        fjs = d.getElementsByTagName(s)[0];
+      if (d.getElementById(id)) {
         return;
       }
       js = d.createElement(s);
-      customerChatJs = d.createElement(s);
-      js.id = ids[0];
-      customerChatJs.id = ids[1];
-      js.src = `https://connect.facebook.net/${language}/sdk${
-        debug ? '/debug' : ''
-      }.js`;
-      customerChatJs.src =
-        '//connect.facebook.net/en_US/sdk/xfbml.customerchat.js';
-      d.body.prepend(js);
-      d.body.prepend(customerChatJs);
-    })(document, 'script', ['facebook-jssdk', 'facebook-customer-chat-sdk']);
+      js.id = id;
+      js.src = `https://connect.facebook.net/${language}/sdk/xfbml.customerchat.js`;
+      fjs.parentNode.insertBefore(js, fjs);
+    })(document, 'script', 'facebook-jssdk');
     /* eslint-enable */
   }
 
@@ -138,10 +126,8 @@ export default class MessengerCustomerChat extends Component {
     this.loadSDKAsynchronously();
   }
 
-  controlsPlugin() {
-    const { shouldShowPlugin, shouldShowDialog } = this.props;
-
-    window.FB.CustomerChat.show(shouldShowPlugin);
+  controlPlugin() {
+    const { shouldShowDialog } = this.props;
 
     if (shouldShowDialog) {
       window.FB.CustomerChat.showDialog();
@@ -151,19 +137,8 @@ export default class MessengerCustomerChat extends Component {
   }
 
   subscribeEvents() {
-    const {
-      onCustomerChatShow,
-      onCustomerChatHide,
-      onCustomerChatDialogShow,
-      onCustomerChatDialogHide,
-    } = this.props;
+    const { onCustomerChatDialogShow, onCustomerChatDialogHide } = this.props;
 
-    if (onCustomerChatShow) {
-      window.FB.Event.subscribe('customerchat.show', onCustomerChatShow);
-    }
-    if (onCustomerChatHide) {
-      window.FB.Event.subscribe('customerchat.hide', onCustomerChatHide);
-    }
     if (onCustomerChatDialogShow) {
       window.FB.Event.subscribe(
         'customerchat.dialogShow',
@@ -228,10 +203,19 @@ export default class MessengerCustomerChat extends Component {
   }
 
   render() {
-    const { fbLoaded } = this.state;
+    const { fbLoaded, shouldShowDialog } = this.state;
 
-    if (fbLoaded) {
-      this.controlsPlugin();
+    if (fbLoaded && shouldShowDialog !== this.props.shouldShowDialog) {
+      document.addEventListener(
+        'DOMNodeInserted',
+        event => {
+          const element = event.target;
+          if (element.className.includes('fb_dialog')) {
+            this.controlPlugin();
+          }
+        },
+        false
+      );
       this.subscribeEvents();
     }
     // Add a random key to rerender. Reference:
