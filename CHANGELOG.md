@@ -1,3 +1,7 @@
+# 0.6.2 / 2018-05-23
+
+* [fix] Fix access parentNode from undefined
+
 # 0.6.1 / 2018-05-15
 
 * [fix] fix removing fbsdk error
