@@ -95,11 +95,11 @@ export default class MessengerCustomerChat extends Component {
 
   removeFacebookSDK() {
     const fbjssdk = document.getElementById('facebook-jssdk');
-    if (fbjssdk.parentNode) {
+    if (fbjssdk && fbjssdk.parentNode) {
       fbjssdk.parentNode.removeChild(fbjssdk);
     }
     const fbroot = document.getElementById('fb-root');
-    if (fbroot.parentNode) {
+    if (fbroot && fbroot.parentNode) {
       fbroot.parentNode.removeChild(fbroot);
     }
     delete window.FB;
