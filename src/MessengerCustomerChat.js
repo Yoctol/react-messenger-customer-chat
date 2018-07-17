@@ -1,6 +1,15 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
+const removeElementByIds = ids => {
+  ids.forEach(id => {
+    const element = document.getElementById(id);
+    if (element && element.parentNode) {
+      element.parentNode.removeChild(element);
+    }
+  });
+};
+
 export default class MessengerCustomerChat extends Component {
   static propTypes = {
     pageId: PropTypes.string.isRequired,
@@ -104,15 +113,6 @@ export default class MessengerCustomerChat extends Component {
   }
 
   removeFacebookSDK() {
-    const removeElementByIds = ids => {
-      ids.forEach(id => {
-        const element = document.getElementById(id);
-        if (element.parentNode) {
-          element.parentNode.removeChild(element);
-        }
-      });
-    };
-
     removeElementByIds(['facebook-jssdk', 'fb-root']);
 
     delete window.FB;
@@ -142,6 +142,7 @@ export default class MessengerCustomerChat extends Component {
         onCustomerChatDialogShow
       );
     }
+
     if (onCustomerChatDialogHide) {
       window.FB.Event.subscribe(
         'customerchat.dialogHide',
