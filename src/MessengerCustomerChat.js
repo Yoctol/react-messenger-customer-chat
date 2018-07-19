@@ -1,11 +1,21 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
+const removeElementByIds = ids => {
+  ids.forEach(id => {
+    const element = document.getElementById(id);
+    if (element && element.parentNode) {
+      element.parentNode.removeChild(element);
+    }
+  });
+};
+
 export default class MessengerCustomerChat extends Component {
   static propTypes = {
     pageId: PropTypes.string.isRequired,
     appId: PropTypes.string.isRequired,
 
+    shouldShowDialog: PropTypes.bool,
     htmlRef: PropTypes.string,
     minimized: PropTypes.bool,
     themeColor: PropTypes.string,
@@ -17,10 +27,12 @@ export default class MessengerCustomerChat extends Component {
     xfbml: PropTypes.bool,
     version: PropTypes.string,
     language: PropTypes.string,
-    debug: PropTypes.bool,
+    onCustomerChatDialogShow: PropTypes.func,
+    onCustomerChatDialogHide: PropTypes.func,
   };
 
   static defaultProps = {
+    shouldShowDialog: false,
     htmlRef: undefined,
     minimized: undefined,
     themeColor: undefined,
@@ -32,7 +44,13 @@ export default class MessengerCustomerChat extends Component {
     xfbml: true,
     version: '2.11',
     language: 'en_US',
-    debug: false,
+    onCustomerChatDialogShow: undefined,
+    onCustomerChatDialogHide: undefined,
+  };
+
+  state = {
+    fbLoaded: false,
+    shouldShowDialog: undefined,
   };
 
   componentDidMount() {
@@ -44,6 +62,7 @@ export default class MessengerCustomerChat extends Component {
     if (
       prevProps.pageId !== this.props.pageId ||
       prevProps.appId !== this.props.appId ||
+      prevProps.shouldShowDialog !== this.props.shouldShowDialog ||
       prevProps.htmlRef !== this.props.htmlRef ||
       prevProps.minimized !== this.props.minimized ||
       prevProps.themeColor !== this.props.themeColor ||
@@ -54,8 +73,7 @@ export default class MessengerCustomerChat extends Component {
       prevProps.autoLogAppEvents !== this.props.autoLogAppEvents ||
       prevProps.xfbml !== this.props.xfbml ||
       prevProps.version !== this.props.version ||
-      prevProps.language !== this.props.language ||
-      prevProps.debug !== this.props.debug
+      prevProps.language !== this.props.language
     ) {
       this.setFbAsyncInit();
       this.reloadSDKAsynchronously();
@@ -64,6 +82,7 @@ export default class MessengerCustomerChat extends Component {
 
   setFbAsyncInit() {
     const { appId, autoLogAppEvents, xfbml, version } = this.props;
+
     window.fbAsyncInit = () => {
       window.FB.init({
         appId,
@@ -71,11 +90,13 @@ export default class MessengerCustomerChat extends Component {
         xfbml,
         version: `v${version}`,
       });
+
+      this.setState({ fbLoaded: true });
     };
   }
 
   loadSDKAsynchronously() {
-    const { language, debug } = this.props;
+    const { language } = this.props;
     /* eslint-disable */
     (function(d, s, id) {
       var js,
@@ -85,29 +106,49 @@ export default class MessengerCustomerChat extends Component {
       }
       js = d.createElement(s);
       js.id = id;
-      js.src = `https://connect.facebook.net/${language}/sdk${
-        debug ? '/debug' : ''
-      }.js`;
+      js.src = `https://connect.facebook.net/${language}/sdk/xfbml.customerchat.js`;
       fjs.parentNode.insertBefore(js, fjs);
     })(document, 'script', 'facebook-jssdk');
     /* eslint-enable */
   }
 
   removeFacebookSDK() {
-    const fbjssdk = document.getElementById('facebook-jssdk');
-    if (fbjssdk && fbjssdk.parentNode) {
-      fbjssdk.parentNode.removeChild(fbjssdk);
-    }
-    const fbroot = document.getElementById('fb-root');
-    if (fbroot && fbroot.parentNode) {
-      fbroot.parentNode.removeChild(fbroot);
-    }
+    removeElementByIds(['facebook-jssdk', 'fb-root']);
+
     delete window.FB;
   }
 
   reloadSDKAsynchronously() {
     this.removeFacebookSDK();
     this.loadSDKAsynchronously();
+  }
+
+  controlPlugin() {
+    const { shouldShowDialog } = this.props;
+
+    if (shouldShowDialog) {
+      window.FB.CustomerChat.showDialog();
+    } else {
+      window.FB.CustomerChat.hideDialog();
+    }
+  }
+
+  subscribeEvents() {
+    const { onCustomerChatDialogShow, onCustomerChatDialogHide } = this.props;
+
+    if (onCustomerChatDialogShow) {
+      window.FB.Event.subscribe(
+        'customerchat.dialogShow',
+        onCustomerChatDialogShow
+      );
+    }
+
+    if (onCustomerChatDialogHide) {
+      window.FB.Event.subscribe(
+        'customerchat.dialogHide',
+        onCustomerChatDialogHide
+      );
+    }
   }
 
   createMarkup() {
@@ -160,6 +201,21 @@ export default class MessengerCustomerChat extends Component {
   }
 
   render() {
+    const { fbLoaded, shouldShowDialog } = this.state;
+
+    if (fbLoaded && shouldShowDialog !== this.props.shouldShowDialog) {
+      document.addEventListener(
+        'DOMNodeInserted',
+        event => {
+          const element = event.target;
+          if (element.className.includes('fb_dialog')) {
+            this.controlPlugin();
+          }
+        },
+        false
+      );
+      this.subscribeEvents();
+    }
     // Add a random key to rerender. Reference:
     // https://stackoverflow.com/questions/30242530/dangerouslysetinnerhtml-doesnt-update-during-render
     return <div key={Date()} dangerouslySetInnerHTML={this.createMarkup()} />;

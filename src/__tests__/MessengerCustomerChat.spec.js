@@ -23,6 +23,13 @@ beforeEach(() => {
       removeChild: jest.fn(),
     },
   }));
+  document.addEventListener = jest.fn((_, cb) =>
+    cb({
+      target: {
+        className: 'fb_dialog',
+      },
+    })
+  );
 });
 
 describe('<MessengerCustomerChat />', () => {
@@ -97,7 +104,7 @@ describe('<MessengerCustomerChat />', () => {
     expect(customerchat.prop('greeting_dialog_delay')).toBe('3');
   });
 
-  it('define fbAsyncInit and call loadSDKAsynchronously when facebook-jssdk does not exist', () => {
+  it('define fbAsyncInit and call loadSDKAsynchronously', () => {
     mount(<MessengerCustomerChat pageId="<PAGE_ID>" appId="<APP_ID>" />);
 
     expect(global.fbAsyncInit).toBeDefined();
@@ -117,6 +124,13 @@ describe('<MessengerCustomerChat />', () => {
 
     global.FB = {
       init: jest.fn(),
+      Event: {
+        subscribe: jest.fn(),
+      },
+      CustomerChat: {
+        showDialog: jest.fn(),
+        hideDialog: jest.fn(),
+      },
     };
 
     global.fbAsyncInit();
@@ -127,5 +141,69 @@ describe('<MessengerCustomerChat />', () => {
       xfbml: true,
       version: 'v2.11',
     });
+
+    expect(global.FB.CustomerChat.hideDialog).toHaveBeenCalledTimes(1);
+  });
+
+  it('define shouldShowPlugin, shouldShowDialog and call FB SDK', () => {
+    mount(
+      <MessengerCustomerChat
+        pageId="<PAGE_ID>"
+        appId="<APP_ID>"
+        shouldShowDialog
+      />
+    );
+
+    global.FB = {
+      init: jest.fn(),
+      Event: {
+        subscribe: jest.fn(),
+      },
+      CustomerChat: {
+        showDialog: jest.fn(),
+        hideDialog: jest.fn(),
+      },
+    };
+
+    global.fbAsyncInit();
+
+    expect(global.FB.CustomerChat.showDialog).toHaveBeenCalledTimes(1);
+    expect(global.FB.CustomerChat.hideDialog).not.toBeCalled();
+  });
+
+  it('define event handlers props and call FB SDK', () => {
+    const onCustomerChatDialogShow = () => {};
+    const onCustomerChatDialogHide = () => {};
+
+    mount(
+      <MessengerCustomerChat
+        pageId="<PAGE_ID>"
+        appId="<APP_ID>"
+        onCustomerChatDialogShow={onCustomerChatDialogShow}
+        onCustomerChatDialogHide={onCustomerChatDialogHide}
+      />
+    );
+
+    global.FB = {
+      init: jest.fn(),
+      Event: {
+        subscribe: jest.fn(),
+      },
+      CustomerChat: {
+        showDialog: jest.fn(),
+        hideDialog: jest.fn(),
+      },
+    };
+
+    global.fbAsyncInit();
+
+    expect(global.FB.Event.subscribe).toBeCalledWith(
+      'customerchat.dialogShow',
+      onCustomerChatDialogShow
+    );
+    expect(global.FB.Event.subscribe).toBeCalledWith(
+      'customerchat.dialogHide',
+      onCustomerChatDialogHide
+    );
   });
 });

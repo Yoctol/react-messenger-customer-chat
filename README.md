@@ -2,7 +2,7 @@
 
 > React component for [Messenger customer chat plugin](https://developers.facebook.com/docs/messenger-platform/discovery/customer-chat-plugin)
 
-[![npm](https://img.shields.io/npm/v/react-messenger-customer-chat.svg?style=flat-square)](https://www.npmjs.com/package/react-messenger-customer-chat)
+[![npm](https://img.shields.io/npm/v/react-messenger-customer-chat.svg)](https://www.npmjs.com/package/react-messenger-customer-chat)
 [![Build Status](https://travis-ci.org/Yoctol/react-messenger-customer-chat.svg?branch=master)](https://travis-ci.org/Yoctol/react-messenger-customer-chat)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 
@@ -44,7 +44,7 @@ ReactDOM.render(
 ```
 
 > Note: It will handle sdk initialize automatically for you. See more details in
-> [fbsdk official docs](https://developers.facebook.com/docs/javascript/quickstart/).
+> [Customer Chat Plugin official docs](https://developers.facebook.com/docs/messenger-platform/discovery/customer-chat-plugin) and [Customer Chat SDK official docs](https://developers.facebook.com/docs/messenger-platform/discovery/customer-chat-plugin/sdk).
 
 ## Props
 
@@ -53,6 +53,7 @@ static propTypes = {
   pageId: PropTypes.string.isRequired,
   appId: PropTypes.string.isRequired,
 
+  shouldShowDialog: PropTypes.bool,
   htmlRef: PropTypes.string,
   minimized: PropTypes.bool,
   themeColor: PropTypes.string,
@@ -65,9 +66,12 @@ static propTypes = {
   version: PropTypes.string,
   language: PropTypes.string,
   debug: PropTypes.bool,
+  onCustomerChatDialogShow: PropTypes.func,
+  onCustomerChatDialogHide: PropTypes.func,
 };
 
 static defaultProps = {
+  shouldShowDialog: false,
   htmlRef: undefined,
   minimized: undefined,
   themeColor: undefined,
@@ -80,6 +84,8 @@ static defaultProps = {
   version: '2.11',
   language: 'en_US',
   debug: false,
+  onCustomerChatDialogShow: undefined,
+  onCustomerChatDialogHide: undefined,
 };
 ```
 
