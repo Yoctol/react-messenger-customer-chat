@@ -2,7 +2,7 @@
   "name": "react-messenger-customer-chat",
   "description": "React component for messenger customer chat plugin",
   "license": "MIT",
-  "version": "0.6.2",
+  "version": "0.7.0-rc.1",
   "main": "lib/index.js",
   "files": [
     "lib"
