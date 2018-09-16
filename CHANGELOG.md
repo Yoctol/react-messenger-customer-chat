@@ -1,3 +1,7 @@
+# 0.7.0 / 2018-09-16
+
+* [new] use Customer Chat SDK internally.
+
 # 0.6.2 / 2018-05-23
 
 * [fix] Fix access parentNode from undefined
