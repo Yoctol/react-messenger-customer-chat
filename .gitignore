@@ -4,4 +4,3 @@ npm-debug.log*
 yarn-error.log
 coverage
 junit.xml
-lib
