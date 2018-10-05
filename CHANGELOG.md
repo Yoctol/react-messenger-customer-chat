@@ -1,3 +1,7 @@
+# 0.7.1 / 2018-10-05
+
+- [fix] fix undefined className.
+
 # 0.7.0 / 2018-09-16
 
 * [new] use Customer Chat SDK internally.
