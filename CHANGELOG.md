@@ -1,3 +1,7 @@
+# 0.7.2 / 2018-10-26
+
+- [fix] Ensure the `className` is a string.
+
 # 0.7.1 / 2018-10-05
 
 - [fix] fix undefined className.
