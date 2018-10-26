@@ -208,7 +208,11 @@ export default class MessengerCustomerChat extends Component {
         'DOMNodeInserted',
         event => {
           const element = event.target;
-          if (element.className && element.className.includes('fb_dialog')) {
+          if (
+            element.className &&
+            typeof element.className === 'string' &&
+            element.className.includes('fb_dialog')
+          ) {
             this.controlPlugin();
           }
         },
