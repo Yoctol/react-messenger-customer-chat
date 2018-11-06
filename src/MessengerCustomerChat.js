@@ -204,20 +204,58 @@ export default class MessengerCustomerChat extends Component {
     const { fbLoaded, shouldShowDialog } = this.state;
 
     if (fbLoaded && shouldShowDialog !== this.props.shouldShowDialog) {
-      document.addEventListener(
-        'DOMNodeInserted',
-        event => {
-          const element = event.target;
-          if (
-            element.className &&
-            typeof element.className === 'string' &&
-            element.className.includes('fb_dialog')
-          ) {
-            this.controlPlugin();
-          }
-        },
-        false
-      );
+      // check compatibility of MutationObserver
+      const MutationObserver =
+        window.MutationObserver ||
+        window.WebKitMutationObserver ||
+        window.MozMutationObserver;
+      if (MutationObserver) {
+        // create an observer instance
+        const observer = new MutationObserver((mutations, observerSelf) => {
+          mutations.forEach(mutation => {
+            if (
+              mutation.target.id === 'fb-root' &&
+              mutation.addedNodes.length > 0
+            ) {
+              const { addedNodes } = mutation;
+              addedNodes.forEach(element => {
+                if (
+                  element &&
+                  element.className &&
+                  element.className.includes('fb_dialog')
+                ) {
+                  this.controlPlugin();
+                  observerSelf.disconnect();
+                }
+              });
+            }
+          });
+        });
+        // select the target node
+        const target = document.querySelector('body');
+        // configuration of the observer:
+        const config = { childList: true, subtree: true };
+
+        // pass in the target node, as well as the observer options
+        observer.observe(target, config);
+      } else if (document.body.addEventListener) {
+        document.addEventListener(
+          'DOMNodeInserted',
+          event => {
+            const element = event.target;
+            if (
+              element.className &&
+              typeof element.className === 'string' &&
+              element.className.includes('fb_dialog')
+            ) {
+              this.controlPlugin();
+            }
+          },
+          false
+        );
+      } else {
+        throw Error('MutationObserver and addEventListener are not supported!');
+      }
       this.subscribeEvents();
     }
     // Add a random key to rerender. Reference:
