@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
 import MessengerCustomerChat from 'react-messenger-customer-chat';
+import React, { Component } from 'react';
 
 import logo from './logo.svg';
 import './App.css';

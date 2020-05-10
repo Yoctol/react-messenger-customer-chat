@@ -1,8 +1,8 @@
-import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import React, { Component } from 'react';
 
-const removeElementByIds = ids => {
-  ids.forEach(id => {
+const removeElementByIds = (ids) => {
+  ids.forEach((id) => {
     const element = document.getElementById(id);
     if (element && element.parentNode) {
       element.parentNode.removeChild(element);
@@ -206,7 +206,7 @@ export default class MessengerCustomerChat extends Component {
     if (fbLoaded && shouldShowDialog !== this.props.shouldShowDialog) {
       document.addEventListener(
         'DOMNodeInserted',
-        event => {
+        (event) => {
           const element = event.target;
           if (
             element.className &&
