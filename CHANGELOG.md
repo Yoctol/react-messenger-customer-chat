@@ -1,3 +1,7 @@
+# 0.8.0 / 2020-06-28
+
+- [fix] Hide messenger chat on component unmount.
+
 # 0.7.2 / 2018-10-26
 
 - [fix] Ensure the `className` is a string.
