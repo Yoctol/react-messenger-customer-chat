@@ -1,3 +1,7 @@
+/**
+ * @jest-environment jsdom
+ */
+
 import React from 'react';
 import Enzyme, { mount } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
@@ -205,5 +209,35 @@ describe('<MessengerCustomerChat />', () => {
       'customerchat.dialogHide',
       onCustomerChatDialogHide
     );
+  });
+
+  it('unmount calls fb hide', () => {
+    const component = mount(
+      <MessengerCustomerChat
+        pageId="<PAGE_ID>"
+        appId="<APP_ID>"
+        autoLogAppEvents
+        xfbml
+        version="2.11"
+      />
+    );
+
+    global.FB = {
+      init: jest.fn(),
+      Event: {
+        subscribe: jest.fn(),
+      },
+      CustomerChat: {
+        showDialog: jest.fn(),
+        hideDialog: jest.fn(),
+        hide: jest.fn(),
+      },
+    };
+
+    global.fbAsyncInit();
+
+    component.unmount();
+
+    expect(global.FB.CustomerChat.hide).toHaveBeenCalledTimes(1);
   });
 });

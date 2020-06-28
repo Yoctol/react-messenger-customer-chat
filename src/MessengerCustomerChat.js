@@ -80,6 +80,12 @@ export default class MessengerCustomerChat extends Component {
     }
   }
 
+  componentWillUnmount() {
+    if (window.FB !== undefined) {
+      window.FB.CustomerChat.hide();
+    }
+  }
+
   setFbAsyncInit() {
     const { appId, autoLogAppEvents, xfbml, version } = this.props;
 
