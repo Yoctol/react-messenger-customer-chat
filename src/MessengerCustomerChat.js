@@ -13,8 +13,7 @@ const removeElementByIds = ids => {
 export default class MessengerCustomerChat extends Component {
   static propTypes = {
     pageId: PropTypes.string.isRequired,
-    appId: PropTypes.string.isRequired,
-
+    appId: PropTypes.string,
     shouldShowDialog: PropTypes.bool,
     htmlRef: PropTypes.string,
     minimized: PropTypes.bool,
@@ -32,6 +31,7 @@ export default class MessengerCustomerChat extends Component {
   };
 
   static defaultProps = {
+    appId: null,
     shouldShowDialog: false,
     htmlRef: undefined,
     minimized: undefined,
