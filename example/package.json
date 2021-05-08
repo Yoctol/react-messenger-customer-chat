@@ -9,7 +9,7 @@
     "test": "react-scripts test --env=jsdom"
   },
   "dependencies": {
-    "lodash": "^4.17.15",
+    "lodash": "^4.17.21",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-messenger-customer-chat": "latest",
