@@ -2,18 +2,16 @@
  * @jest-environment jsdom
  */
 
-import React from 'react';
-import Enzyme, { mount } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
+import Enzyme, { mount } from 'enzyme';
+import React from 'react';
 
 import MessengerCustomerChat from '../MessengerCustomerChat';
 
 Enzyme.configure({ adapter: new Adapter() });
 
 function render(element) {
-  const customerchat = mount(element)
-    .render()
-    .find('.fb-customerchat');
+  const customerchat = mount(element).render().find('.fb-customerchat');
 
   return {
     customerchat,

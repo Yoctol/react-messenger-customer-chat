@@ -1,8 +1,8 @@
-import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import React, { Component } from 'react';
 
-const removeElementByIds = ids => {
-  ids.forEach(id => {
+const removeElementByIds = (ids) => {
+  ids.forEach((id) => {
     const element = document.getElementById(id);
     if (element && element.parentNode) {
       element.parentNode.removeChild(element);
@@ -11,43 +11,7 @@ const removeElementByIds = ids => {
 };
 
 export default class MessengerCustomerChat extends Component {
-  static propTypes = {
-    pageId: PropTypes.string.isRequired,
-    appId: PropTypes.string,
-    shouldShowDialog: PropTypes.bool,
-    htmlRef: PropTypes.string,
-    minimized: PropTypes.bool,
-    themeColor: PropTypes.string,
-    loggedInGreeting: PropTypes.string,
-    loggedOutGreeting: PropTypes.string,
-    greetingDialogDisplay: PropTypes.oneOf(['show', 'hide', 'fade']),
-    greetingDialogDelay: PropTypes.number,
-    autoLogAppEvents: PropTypes.bool,
-    xfbml: PropTypes.bool,
-    version: PropTypes.string,
-    language: PropTypes.string,
-    onCustomerChatDialogShow: PropTypes.func,
-    onCustomerChatDialogHide: PropTypes.func,
-  };
-
-  static defaultProps = {
-    appId: null,
-    shouldShowDialog: false,
-    htmlRef: undefined,
-    minimized: undefined,
-    themeColor: undefined,
-    loggedInGreeting: undefined,
-    loggedOutGreeting: undefined,
-    greetingDialogDisplay: undefined,
-    greetingDialogDelay: undefined,
-    autoLogAppEvents: true,
-    xfbml: true,
-    version: '2.11',
-    language: 'en_US',
-    onCustomerChatDialogShow: undefined,
-    onCustomerChatDialogHide: undefined,
-  };
-
+  // eslint-disable-next-line react/state-in-constructor
   state = {
     fbLoaded: false,
     shouldShowDialog: undefined,
@@ -212,7 +176,7 @@ export default class MessengerCustomerChat extends Component {
     if (fbLoaded && shouldShowDialog !== this.props.shouldShowDialog) {
       document.addEventListener(
         'DOMNodeInserted',
-        event => {
+        (event) => {
           const element = event.target;
           if (
             element.className &&
@@ -231,3 +195,40 @@ export default class MessengerCustomerChat extends Component {
     return <div key={Date()} dangerouslySetInnerHTML={this.createMarkup()} />;
   }
 }
+
+MessengerCustomerChat.propTypes = {
+  pageId: PropTypes.string.isRequired,
+  appId: PropTypes.string,
+  shouldShowDialog: PropTypes.bool,
+  htmlRef: PropTypes.string,
+  minimized: PropTypes.bool,
+  themeColor: PropTypes.string,
+  loggedInGreeting: PropTypes.string,
+  loggedOutGreeting: PropTypes.string,
+  greetingDialogDisplay: PropTypes.oneOf(['show', 'hide', 'fade']),
+  greetingDialogDelay: PropTypes.number,
+  autoLogAppEvents: PropTypes.bool,
+  xfbml: PropTypes.bool,
+  version: PropTypes.string,
+  language: PropTypes.string,
+  onCustomerChatDialogShow: PropTypes.func,
+  onCustomerChatDialogHide: PropTypes.func,
+};
+
+MessengerCustomerChat.defaultProps = {
+  appId: null,
+  shouldShowDialog: false,
+  htmlRef: undefined,
+  minimized: undefined,
+  themeColor: undefined,
+  loggedInGreeting: undefined,
+  loggedOutGreeting: undefined,
+  greetingDialogDisplay: undefined,
+  greetingDialogDelay: undefined,
+  autoLogAppEvents: true,
+  xfbml: true,
+  version: '2.11',
+  language: 'en_US',
+  onCustomerChatDialogShow: undefined,
+  onCustomerChatDialogHide: undefined,
+};
