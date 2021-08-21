@@ -6,24 +6,24 @@
 [![Build Status](https://travis-ci.org/Yoctol/react-messenger-customer-chat.svg?branch=master)](https://travis-ci.org/Yoctol/react-messenger-customer-chat)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 
-## Screenshot
+## Screenshots
 
-![](https://user-images.githubusercontent.com/3382565/33435564-6ed7df66-d61d-11e7-8b6c-fdb2d36f0ff9.png)
-![](https://user-images.githubusercontent.com/3382565/33435563-6eacb444-d61d-11e7-85a7-a5d29a418f25.png)
+![](https://user-images.githubusercontent.com/3382565/130329195-0aaee250-5500-413f-ba8b-a78cda9b6a7b.png)
+![](https://user-images.githubusercontent.com/3382565/130329198-3e5b7bee-44c2-4bd8-befc-461a176cbf53.png)
 
 ## Prerequisite
 
 Whitelist your domain to connect your Facebook Page to your website via the
 Facebook tool.
 
-* From UI: Facebook Page Settings > Messenger Platform > Whitelisted Domains
-* From API: Use HTTP API or API client likes
+- From UI: Facebook Page Settings > Messenger Platform > Whitelisted Domains
+- From API: Use HTTP API or API client likes
   [messaging-api-messenger](https://github.com/Yoctol/messaging-apis/tree/master/packages/messaging-api-messenger#setwhitelisteddomainsdomains)
 
 ## Installation
 
 ```sh
-npm install react-messenger-customer-chat
+$ npm install react-messenger-customer-chat
 ```
 
 ## Usage
@@ -39,7 +39,7 @@ ReactDOM.render(
     appId="<APP_ID>"
     htmlRef="<REF_STRING>"
   />,
-  document.getElementById('demo')
+  document.getElementById('demo'),
 );
 ```
 
@@ -91,11 +91,11 @@ static defaultProps = {
 
 ## Related
 
-* [react-messenger-checkbox](https://github.com/Yoctol/react-messenger-checkbox) - React component for messenger checkbox plugin.
-* [react-messenger-message-us](https://github.com/Yoctol/react-messenger-message-us) - React component for messenger message us plugin.
-* [react-messenger-send-to-messenger](https://github.com/Yoctol/react-messenger-send-to-messenger) - React component for messenger send to messenger plugin.
-* [messaging-api-messenger](https://github.com/Yoctol/messaging-apis/tree/master/packages/messaging-api-messenger) - Messaging APIs for Messenger.
-* [bottender](https://github.com/Yoctol/bottender) - Make Bots in Your Way, Fast and Flexibly.
+- [react-messenger-checkbox](https://github.com/Yoctol/react-messenger-checkbox) - React component for messenger checkbox plugin.
+- [react-messenger-message-us](https://github.com/Yoctol/react-messenger-message-us) - React component for messenger message us plugin.
+- [react-messenger-send-to-messenger](https://github.com/Yoctol/react-messenger-send-to-messenger) - React component for messenger send to messenger plugin.
+- [messaging-api-messenger](https://github.com/Yoctol/messaging-apis/tree/master/packages/messaging-api-messenger) - Messaging APIs for Messenger.
+- [bottender](https://github.com/Yoctol/bottender) - Make Bots in Your Way, Fast and Flexibly.
 
 ## License
 
