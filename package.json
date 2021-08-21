@@ -23,10 +23,10 @@
     "preversion": "npm test"
   },
   "dependencies": {
-    "prop-types": "^15.6.0"
+    "prop-types": "^15.7.2"
   },
   "peerDependencies": {
-    "react": "^0.14.0 || ^15.0.0-0 || ^16.0.0-0"
+    "react": "^0.14.0 || ^15.0.0-0 || ^16.0.0-0 || ^17.0.0-0"
   },
   "devDependencies": {
     "@babel/cli": "^7.14.8",
@@ -34,8 +34,8 @@
     "@babel/eslint-parser": "^7.15.0",
     "@babel/preset-env": "^7.15.0",
     "@babel/preset-react": "^7.14.5",
-    "enzyme": "^3.2.0",
-    "enzyme-adapter-react-16": "^1.1.1",
+    "enzyme": "^3.11.0",
+    "enzyme-adapter-react-16": "^1.15.6",
     "eslint": "^7.32.0",
     "eslint-config-prettier": "^8.3.0",
     "eslint-config-yoctol": "^0.26.2",
@@ -46,14 +46,14 @@
     "eslint-plugin-react-hooks": "^4.2.0",
     "eslint-plugin-sort-imports-es6-autofix": "^0.6.0",
     "husky": "^7.0.1",
-    "jest": "^22.0.4",
+    "jest": "^27.0.6",
     "lint-staged": "^11.1.2",
     "prettier": "^2.3.2",
     "prettier-package-json": "^2.6.0",
-    "react": "^16.3.2",
-    "react-dom": "^16.3.2",
-    "react-test-renderer": "^16.3.2",
-    "rimraf": "^2.6.2"
+    "react": "^16.14.0",
+    "react-dom": "^16.14.0",
+    "react-test-renderer": "^16.14.0",
+    "rimraf": "^3.0.2"
   },
   "keywords": [
     "bot",
@@ -63,11 +63,5 @@
     "facebook",
     "messenger",
     "react"
-  ],
-  "jest": {
-    "testPathIgnorePatterns": [
-      "/node_modules/",
-      "/example/"
-    ]
-  }
+  ]
 }
