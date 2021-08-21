@@ -89,6 +89,14 @@ static defaultProps = {
 };
 ```
 
+## [Troubleshooting Tips](https://developers.facebook.com/docs/messenger-platform/discovery/facebook-chat-plugin?locale=en_US#debug-tips)
+
+If you're having trouble getting the plugin to render properly, try the tips below:
+
+- If you see a console error like "Refused to display **_ in a frame because an ancestor violates the following Content Security Policy directive: _**", check that the domain of the page the plugin is being rendered on has been whitelisted. Also make sure you didn't set the `Referrer-Policy header` to `no-referrer`.
+- The Firefox Facebook Container Add-On prevents the plugin from showing up. Remove the add on if you want the plugin to render.
+- Firefox desktop private browsers (version 63 and above) and Firefox mobile browsers block content tracking by default which will prevent the plugin from rendering. Turn off content blocking (click the gray shield in the search bar) to see the plugin render.
+
 ## Related
 
 - [react-messenger-checkbox](https://github.com/Yoctol/react-messenger-checkbox) - React component for messenger checkbox plugin.
