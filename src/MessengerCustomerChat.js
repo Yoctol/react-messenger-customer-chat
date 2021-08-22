@@ -68,7 +68,7 @@ export default class MessengerCustomerChat extends Component {
   loadSDKAsynchronously() {
     const { language } = this.props;
     /* eslint-disable */
-    (function(d, s, id) {
+    (function (d, s, id) {
       var js,
         fjs = d.getElementsByTagName(s)[0];
       if (d.getElementById(id)) {
@@ -109,14 +109,14 @@ export default class MessengerCustomerChat extends Component {
     if (onCustomerChatDialogShow) {
       window.FB.Event.subscribe(
         'customerchat.dialogShow',
-        onCustomerChatDialogShow
+        onCustomerChatDialogShow,
       );
     }
 
     if (onCustomerChatDialogHide) {
       window.FB.Event.subscribe(
         'customerchat.dialogHide',
-        onCustomerChatDialogHide
+        onCustomerChatDialogHide,
       );
     }
   }
@@ -186,7 +186,7 @@ export default class MessengerCustomerChat extends Component {
             this.controlPlugin();
           }
         },
-        false
+        false,
       );
       this.subscribeEvents();
     }
@@ -227,7 +227,7 @@ MessengerCustomerChat.defaultProps = {
   greetingDialogDelay: undefined,
   autoLogAppEvents: true,
   xfbml: true,
-  version: '2.11',
+  version: '11.0',
   language: 'en_US',
   onCustomerChatDialogShow: undefined,
   onCustomerChatDialogHide: undefined,
