@@ -89,6 +89,22 @@ static defaultProps = {
 };
 ```
 
+## Next.js/SSR
+
+To make `<MessengerComponent />` work with Server-Side Rendering (SSR), you need to avoid rendering it on the server:
+
+```js
+{
+  typeof window !== 'undefiend' && (
+    <MessengerComponent
+      pageId="<PAGE_ID>"
+      appId="<APP_ID>"
+      htmlRef="<REF_STRING>"
+    />
+  );
+}
+```
+
 ## [Troubleshooting Tips](https://developers.facebook.com/docs/messenger-platform/discovery/facebook-chat-plugin?locale=en_US#debug-tips)
 
 If you're having trouble getting the plugin to render properly, try the tips below:
