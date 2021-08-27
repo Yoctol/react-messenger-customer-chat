@@ -3,6 +3,11 @@
   "version": "0.8.0",
   "description": "React component for messenger customer chat plugin",
   "license": "MIT",
+  "homepage": "https://github.com/Yoctol/react-messenger-customer-chat",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Yoctol/react-messenger-customer-chat.git"
+  },
   "main": "lib/index.js",
   "files": [
     "lib"
